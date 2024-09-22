@@ -1,3 +1,4 @@
+using Static;
 using TMPro;
 using UnityEngine;
 
@@ -10,6 +11,7 @@ namespace UI
         public void LoadGame()
         {
             PlayerPrefs.SetString("Name", nameInput.text);
+            StaticFunctions.SwitchScene(1);
         }
         
         public void Quit()

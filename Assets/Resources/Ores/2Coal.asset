@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc3dae03f720b1439a4026f09d46848, type: 3}
-  m_Name: IronOre
+  m_Name: 2Coal
   m_EditorClassIdentifier: 
-  oreName: Iron
-  oreRarity: 1
-  oreValue: 5
-  baseRarity: 50
+  oreName: Coal
+  oreImage: {fileID: 21300000, guid: 7d58fd33da0c1714e83ed3c55ae05bb9, type: 3}
+  oreRarity: 0
+  oreValue: 2
+  baseRarity: 20

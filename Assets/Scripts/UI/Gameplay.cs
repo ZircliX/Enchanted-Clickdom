@@ -1,17 +1,18 @@
-using Ores;
+using Static;
 using UnityEngine;
 
-public class Gameplay : MonoBehaviour
+namespace UI
 {
-    private OreUnit[] ores;
-    
-    private void Start()
+    public class Gameplay : MonoBehaviour
     {
-        ores = Resources.LoadAll<OreUnit>("Ores");
-    }
-    
-    public void Mine()
-    {
-        Debug.Log("Player is mining ores.");
+        public void GoToTavern()
+        {
+            StaticFunctions.SwitchScene(2);
+        }
+
+        public void SaveGame()
+        {
+            Player.Instance.PlayerToPlayerData();
+        }
     }
 }

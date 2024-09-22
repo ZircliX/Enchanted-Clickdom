@@ -1,17 +1,23 @@
+using Static;
 using UnityEngine;
 
 namespace UI
 {
     public class Tavern : MonoBehaviour
     {
-        public void Buy()
-        {
-            Debug.Log("Player is buying something.");
-        }
+        public GameObject[] panels;
+        private int currentIndex;
         
-        public void Sell()
+        public void GoToMine()
         {
-            Debug.Log("Player is selling something.");
+            StaticFunctions.SwitchScene(1);
+        }
+
+        public void SwitchPanel(int index)
+        {
+            panels[currentIndex].SetActive(false);
+            panels[index].SetActive(true);
+            currentIndex = index;
         }
     }
 }

@@ -10,9 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2bc3dae03f720b1439a4026f09d46848, type: 3}
-  m_Name: DiamondOre
+  m_Name: 1Stone
   m_EditorClassIdentifier: 
-  oreName: Diamond
-  oreRarity: 3
-  oreValue: 25
-  baseRarity: 250
+  oreName: Stone
+  oreImage: {fileID: 21300000, guid: b9a847102a75c8c429a8f749008df6c2, type: 3}
+  oreRarity: 0
+  oreValue: 1
+  baseRarity: 10

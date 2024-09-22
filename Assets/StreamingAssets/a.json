@@ -1,6 +1,7 @@
 {
-    "playerName": "aaa",
+    "playerName": "a",
     "level": 1,
+    "oreMined": 114,
     "miningBonus": 0.0,
     "inventory": {}
 }

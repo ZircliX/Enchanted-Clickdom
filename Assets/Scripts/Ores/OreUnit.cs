@@ -6,6 +6,8 @@ namespace Ores
     public class OreUnit : ScriptableObject
     {
         public string oreName;
+        public Sprite oreImage;
+        
         public Rarity oreRarity;
         public float oreValue;
 
