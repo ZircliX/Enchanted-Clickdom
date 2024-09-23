@@ -17,28 +17,43 @@ namespace RunTime
         public void Mine()
         {
             Debug.Log("Player is mining ores.");
-            
-            int oreIndex = Random.Range(0, ores.Length);
-            OreUnit oreMined = ores[oreIndex];
-            
+
+            OreUnit oreMined = GetRandomOreByRarity();
+        
             AddToPlayer(oreMined);
             oreShow.oreData = oreMined;
         }
 
+        private OreUnit GetRandomOreByRarity()
+        {
+            // Total weight
+            float totalWeight = 0f;
+            foreach (OreUnit ore in ores)
+            {
+                totalWeight += 1f / ore.baseRarity;
+            }
+            
+            float randomValue = Random.Range(0f, totalWeight);
+
+            // Picks ore based on weight values
+            float cumulativeWeight = 0f;
+            foreach (OreUnit ore in ores)
+            {
+                cumulativeWeight += 1f / ore.baseRarity;
+                
+                if (randomValue < cumulativeWeight)
+                {
+                    return ore;
+                }
+            }
+            
+            return ores[0];
+        }
+
         private void AddToPlayer(OreUnit ore)
         {
-            if (Player.Instance.inventory.ores.ContainsKey(ore))
-            {
-                // If the key exists, increment its value
-                Player.Instance.inventory.ores[ore]++;
-            }
-            else
-            {
-                // If the key does not exist, initialize it with a value of 1
-                Player.Instance.inventory.ores[ore] = 1;
-            }
-
             Player.Instance.oreMined++;
+            Player.Instance.inventory.AddToOre(ore);
         }
     }
 }

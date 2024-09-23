@@ -16,7 +16,13 @@ namespace UI
 
             for (int i = 0; i < ores.Length; i++)
             {
-                oreTexts[i].text = playerInv[ores[i]].ToString();
+                if (Player.Instance.inventory.ores.ContainsKey(ores[i]))
+                {
+                    oreTexts[i].text = playerInv[ores[i]].ToString();
+                    continue;
+                }
+                
+                oreTexts[i].text = "0";
             }
         }
     }

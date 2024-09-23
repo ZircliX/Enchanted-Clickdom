@@ -1,59 +1,43 @@
-using System.Collections.Generic;
 using System.IO;
-using Ores;
 using UnityEngine;
 
 namespace SaveSystem
 {
     public static class SavePlayer
     {
-        public static void Save(PlayerData player, string name)
+        public static void Save(Player player)
         {
-            SaveDictionaryToJson(player.inventory.ores, name);
+            PlayerData playerData = ConvertPlayerData(player);
             
-            string json = JsonUtility.ToJson(player, true);
-            File.WriteAllText(Application.dataPath + "/StreamingAssets/" + name + ".json", json);
+            string json = JsonUtility.ToJson(playerData, true);
+            File.WriteAllText(Application.dataPath + "/StreamingAssets/" + playerData.playerName + ".json", json);
         }
         
-        public static (PlayerData, Dictionary<OreUnit, int>) Load(string name)
+        public static PlayerData Load(string name)
         {
-            Dictionary<OreUnit, int> loadedDictionary = LoadDictionaryFromJson(name);
-            
             string jsonData = File.ReadAllText(Application.dataPath + "/StreamingAssets/" + name + ".json");
             PlayerData playerData = JsonUtility.FromJson<PlayerData>(jsonData);
-            return (playerData, loadedDictionary);
+            return playerData;
         }
         
-        // Save dictionary to JSON
-        private static void SaveDictionaryToJson(Dictionary<OreUnit, int> dict, string name)
+        private static PlayerData ConvertPlayerData(Player player)
         {
-            SerializableDictionary serializableDict = new ();
-            foreach (var pair in dict)
+            DictToList dictToList = new ();
+            foreach (var pair in player.inventory.ores)
             {
-                serializableDict.entries.Add(new SerializableDictionaryEntry { key = pair.Key, value = pair.Value });
+                dictToList.entries.Add(new ListEntity { key = pair.Key, value = pair.Value });
             }
-
-            string json = JsonUtility.ToJson(serializableDict, true);
-            File.WriteAllText(Application.dataPath + "/StreamingAssets/" + name + "Inventory" + ".json", json);
-        }
         
-        // Load dictionary from JSON
-        private static Dictionary<OreUnit, int> LoadDictionaryFromJson(string fileName)
-        {
-            string filePath = Application.dataPath + "/StreamingAssets/" + fileName + "Inventory" + ".json";
-            if (File.Exists(filePath))
+            PlayerData playerData = new ()
             {
-                string json = File.ReadAllText(filePath);
-                SerializableDictionary serializableDict = JsonUtility.FromJson<SerializableDictionary>(json);
-
-                Dictionary<OreUnit, int> dict = new Dictionary<OreUnit, int>();
-                foreach (var entry in serializableDict.entries)
-                {
-                    dict[entry.key] = entry.value;
-                }
-                return dict;
-            }
-            return new Dictionary<OreUnit, int>();
+                playerName = player.playerName,
+                level = player.level,
+                oreMined = player.oreMined,
+                miningBonus = player.miningBonus,
+                oreInventory = dictToList
+            };
+        
+            return playerData;
         }
     }
 }

@@ -1,3 +1,4 @@
+using SaveSystem;
 using Static;
 using UnityEngine;
 
@@ -12,7 +13,7 @@ namespace UI
 
         public void SaveGame()
         {
-            Player.Instance.PlayerToPlayerData();
+            SavePlayer.Save(Player.Instance);
         }
     }
 }

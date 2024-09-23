@@ -1,15 +1,16 @@
 using UnityEngine;
+using UnityEngine.UI;
 
 namespace Ores
 {
     public class OreShow : MonoBehaviour
     {
         public OreUnit oreData;
-        private SpriteRenderer image;
+        private Image image;
 
         private void Awake()
         {
-            image = GetComponent<SpriteRenderer>();
+            image = GetComponent<Image>();
         }
 
         private void Update()

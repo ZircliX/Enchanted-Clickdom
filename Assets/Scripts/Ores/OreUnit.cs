@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Ores
 {
-    [CreateAssetMenu(menuName = "Ores", fileName = "NewOre")]
+    [CreateAssetMenu(fileName = "NewOre", menuName = "ScriptableObjects/Ores", order = 1)]
     public class OreUnit : ScriptableObject
     {
         public string oreName;

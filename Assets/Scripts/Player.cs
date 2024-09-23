@@ -9,48 +9,30 @@ public class Player : MonoBehaviour
     
     public string playerName;
     public int level;
+    public int money;
+    
     public int oreMined;
     public float miningBonus;
+    
     public Inventory inventory;
     
     private void Awake()
     {
-        // If an instance already exists and it's not this one, destroy this one
         if (Instance != null && Instance != this)
         {
-            Destroy(gameObject); // Prevent duplicate instances
+            Destroy(gameObject);
             return;
         }
-
-        // Set this instance as the singleton instance
-        Instance = this;
         
-        // Make sure this object persists between scene loads
+        Instance = this;
         DontDestroyOnLoad(gameObject);
     }
 
     private void Start()
     {
         LoadPlayer();
-        DontDestroyOnLoad(this);
     }
     
-    // Save the current state of the player to a file
-    public void PlayerToPlayerData()
-    {
-        PlayerData playerData = new ()
-        {
-            playerName = playerName,
-            level = level,
-            oreMined = oreMined,
-            miningBonus = miningBonus,
-            inventory = inventory
-        };
-
-        SavePlayer.Save(playerData, playerName); // You will define this method
-    }
-
-    // Load the player data from a file and apply it to this MonoBehaviour
     private void LoadPlayer()
     {
         string loadedPlayerName = PlayerPrefs.GetString("Name", "Default");
@@ -58,25 +40,32 @@ public class Player : MonoBehaviour
         try
         {
             var loadedData = SavePlayer.Load(loadedPlayerName);
-            PlayerData playerData = loadedData.Item1;
-            Dictionary<OreUnit, int> inv = loadedData.Item2;
+            PlayerData playerData = loadedData;
+            
+            Dictionary<OreUnit, int> oreInv = new Dictionary<OreUnit, int>();
+            foreach (var entry in playerData.oreInventory.entries)
+            {
+                oreInv[entry.key] = entry.value;
+            }
 
-            this.playerName = playerData.playerName;
-            this.level = playerData.level;
-            this.oreMined = playerData.oreMined;
-            this.miningBonus = playerData.miningBonus;
-            this.inventory.ores = inv;
+            playerName = playerData.playerName;
+            money = playerData.level;
+            money = playerData.money;
+            oreMined = playerData.oreMined;
+            miningBonus = playerData.miningBonus;
+            inventory.ores = oreInv;
         }
         catch
         {
             // If no save data exists, initialize with default values
-            this.playerName = loadedPlayerName;
-            this.level = 1;
-            this.oreMined = 0;
-            this.miningBonus = 0;
-            this.inventory = new Inventory();
+            playerName = loadedPlayerName;
+            level = 1;
+            money = 0;
+            oreMined = 0;
+            miningBonus = 0;
+            inventory = new Inventory();
 
-            PlayerToPlayerData();
+            SavePlayer.Save(this);
         }
     }
 }
@@ -87,27 +76,38 @@ public class PlayerData
     public string playerName;
     
     public int level;
+    public int money;
     public int oreMined;
     public float miningBonus;
 
-    public Inventory inventory;
+    public DictToList oreInventory;
 }
 
 [System.Serializable]
 public class Inventory
 {
     public Dictionary<OreUnit, int> ores = new();
+
+    public void AddToOre(OreUnit ore)
+    {
+        if (ores.ContainsKey(ore))
+        {
+            ores[ore]++;
+            return;
+        }
+        ores[ore] = 1;
+    }
 }
 
 [System.Serializable]
-public class SerializableDictionaryEntry
+public class ListEntity
 {
     public OreUnit key;
     public int value;
 }
 
 [System.Serializable]
-public class SerializableDictionary
+public class DictToList
 {
-    public List<SerializableDictionaryEntry> entries = new ();
+    public List<ListEntity> entries = new ();
 }

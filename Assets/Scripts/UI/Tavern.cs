@@ -5,19 +5,19 @@ namespace UI
 {
     public class Tavern : MonoBehaviour
     {
-        public GameObject[] panels;
-        private int currentIndex;
-        
         public void GoToMine()
         {
             StaticFunctions.SwitchScene(1);
         }
-
-        public void SwitchPanel(int index)
+        
+        public void Buy()
         {
-            panels[currentIndex].SetActive(false);
-            panels[index].SetActive(true);
-            currentIndex = index;
+            Debug.Log("Player is buying something.");
+        }
+        
+        public void Sell()
+        {
+            Debug.Log("Player is selling something.");
         }
     }
 }
