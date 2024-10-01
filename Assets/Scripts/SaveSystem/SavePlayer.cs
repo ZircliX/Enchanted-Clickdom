@@ -32,6 +32,7 @@ namespace SaveSystem
             {
                 playerName = player.playerName,
                 level = player.level,
+                money = player.money,
                 oreMined = player.oreMined,
                 miningBonus = player.miningBonus,
                 oreInventory = dictToList

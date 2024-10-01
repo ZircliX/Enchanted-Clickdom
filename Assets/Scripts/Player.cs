@@ -88,11 +88,13 @@ public class Inventory
 {
     public Dictionary<OreUnit, int> ores = new();
 
-    public void AddToOre(OreUnit ore)
+    public void ChangeOres(OreUnit ore, int number)
     {
         if (ores.ContainsKey(ore))
         {
-            ores[ore]++;
+            if (ores[ore] + number < 0) return;
+            
+            ores[ore] += number;
             return;
         }
         ores[ore] = 1;

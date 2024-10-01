@@ -1,40 +1,40 @@
 {
     "playerName": "a",
     "level": 0,
-    "money": 0,
-    "oreMined": 123,
+    "money": 39,
+    "oreMined": 38,
     "miningBonus": 0.0,
     "oreInventory": {
         "entries": [
             {
                 "key": {
-                    "instanceID": 28178
+                    "instanceID": 28278
                 },
-                "value": 31
+                "value": 0
             },
             {
                 "key": {
-                    "instanceID": 28228
+                    "instanceID": 28266
                 },
-                "value": 14
+                "value": 0
             },
             {
                 "key": {
-                    "instanceID": 28190
+                    "instanceID": 28298
                 },
-                "value": 65
+                "value": 0
             },
             {
                 "key": {
-                    "instanceID": 28210
+                    "instanceID": 28320
                 },
-                "value": 11
+                "value": 0
             },
             {
                 "key": {
-                    "instanceID": 28196
+                    "instanceID": 28284
                 },
-                "value": 2
+                "value": 0
             }
         ]
     }

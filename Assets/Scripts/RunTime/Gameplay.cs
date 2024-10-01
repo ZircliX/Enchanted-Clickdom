@@ -19,7 +19,7 @@ namespace RunTime
             Debug.Log("Player is mining ores.");
 
             OreUnit oreMined = GetRandomOreByRarity();
-        
+            
             AddToPlayer(oreMined);
             oreShow.oreData = oreMined;
         }
@@ -53,7 +53,7 @@ namespace RunTime
         private void AddToPlayer(OreUnit ore)
         {
             Player.Instance.oreMined++;
-            Player.Instance.inventory.AddToOre(ore);
+            Player.Instance.inventory.ChangeOres(ore, 1);
         }
     }
 }
